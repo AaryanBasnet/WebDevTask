@@ -8,6 +8,7 @@ import com.example.webdevtask.shared.pojo.GlobalApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,15 +19,15 @@ public class GroundController {
     private final GroundService groundService;
 
     @GetMapping("/get")
-    public GlobalApiResponse<Ground> getData() {
+
+    public GlobalApiResponse<List<Ground>> getData() {
         return GlobalApiResponse.
-                <Ground>builder()
-                .data("saved")
+                <List<Ground>>builder()
+                .data(groundService.getAll())
                 .statusCode(200)
                 .message("Data retrieved successfully!")
                 .build();
     }
-
     @PostMapping("/save")
     public void save(@RequestBody GroundPojo groundPojo) {
         this.groundService.saveData(groundPojo);

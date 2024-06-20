@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,10 +21,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/get")
-    public GlobalApiResponse<User> getData() {
+
+    public GlobalApiResponse<List<User>> getData() {
         return GlobalApiResponse.
-                <User>builder()
-                .data("saved")
+                <List<User>>builder()
+                .data(userService.getAll())
                 .statusCode(200)
                 .message("Data retrieved successfully!")
                 .build();

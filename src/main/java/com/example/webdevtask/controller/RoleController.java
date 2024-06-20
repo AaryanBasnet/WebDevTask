@@ -8,6 +8,7 @@ import com.example.webdevtask.shared.pojo.GlobalApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,10 +19,11 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping("/get")
-    public GlobalApiResponse<Role> getData() {
+
+    public GlobalApiResponse<List<Role>> getData() {
         return GlobalApiResponse.
-                <Role>builder()
-                .data("saved")
+                <List<Role>>builder()
+                .data(roleService.getAll())
                 .statusCode(200)
                 .message("Data retrieved successfully!")
                 .build();
