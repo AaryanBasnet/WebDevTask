@@ -21,6 +21,9 @@ public class BookImpl implements BookService {
         Book book = new Book();
         book.setBookingId(bookPojo.getBookingId());
         book.setUserName(bookPojo.getUserName());
+        book.setGround(bookPojo.getGround());
+        book.setUser(bookPojo.getUser());
+
         bookRepo.save(book);
     }
 
@@ -30,12 +33,28 @@ public class BookImpl implements BookService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public boolean deleteById(Integer id) {
         bookRepo.deleteById(Long.valueOf(id));
+        return false;
     }
 
     @Override
     public Optional<Book> findById(Integer bookingId) {
         return bookRepo.findById(Long.valueOf(bookingId));
+    }
+
+    @Override
+    public void updateData(Long id, BookPojo bookPojo) {
+        Optional<Book> existingBookOpt = bookRepo.findById(id);
+        if (existingBookOpt.isPresent()) {
+            Book existingBook = existingBookOpt.get();
+            existingBook.setUserName(bookPojo.getUserName());
+            existingBook.setGround(bookPojo.getGround());
+            existingBook.setUser(bookPojo.getUser());
+
+            bookRepo.save(existingBook);
+        } else {
+            throw new RuntimeException("Book not found with id " + id);
+        }
     }
 }
