@@ -11,7 +11,7 @@ public interface BookService {
     void saveData(BookPojo bookPojo);
     List<Book> getAll();
 
-    boolean deleteById(Integer id);
+    void deleteById(Integer id);
     Optional<Book> findById(Integer id);
 
     void updateData(Long id,BookPojo bookPojo);

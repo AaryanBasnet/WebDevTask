@@ -60,24 +60,23 @@ public class BookController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<GlobalApiResponse<Void>> delete(@PathVariable Integer id) {
-        if (bookService.deleteById(id)) {
-            GlobalApiResponse<Void> response = GlobalApiResponse.<Void>builder()
-                    .statusCode(HttpStatus.OK.value())
-                    .message("Book deleted successfully!")
-                    .build();
-            return ResponseEntity.ok(response);
-        } else {
-            GlobalApiResponse<Void> response = GlobalApiResponse.<Void>builder()
-                    .statusCode(HttpStatus.NOT_FOUND.value())
-                    .message("Book not found")
-                    .build();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
+        bookService.deleteById(id);
+        GlobalApiResponse<Void> response = GlobalApiResponse.<Void>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("Book deleted successfully!")
+                .build();
+        return ResponseEntity.ok(response);
     }
+
     @PutMapping("/update/{id}")
-    public void update(@PathVariable Long id, @RequestBody BookPojo bookPojo) {
+    public ResponseEntity<GlobalApiResponse<Void>> update(@PathVariable Long id, @RequestBody BookPojo bookPojo) {
         bookService.updateData(id, bookPojo);
+        GlobalApiResponse<Void> response = GlobalApiResponse.<Void>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("Book updated successfully!")
+                .build();
+        return ResponseEntity.ok(response);
     }
 }

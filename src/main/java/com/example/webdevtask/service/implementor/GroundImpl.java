@@ -1,6 +1,8 @@
 package com.example.webdevtask.service.implementor;
 
+import com.example.webdevtask.entity.Book;
 import com.example.webdevtask.entity.Ground;
+import com.example.webdevtask.pojo.BookPojo;
 import com.example.webdevtask.pojo.GroundPojo;
 import com.example.webdevtask.repo.GroundRepo;
 import com.example.webdevtask.service.GroundService;
@@ -22,6 +24,19 @@ public class GroundImpl implements GroundService {
         ground.setId(groundPojo.getId());
         ground.setName(groundPojo.getName());
         groundRepo.save(ground);
+    }
+
+    public void updateData(Long id, GroundPojo groundPojo) {
+        Optional<Ground> existingBookOpt = groundRepo.findById(id);
+        if (existingBookOpt.isPresent()) {
+            Ground existingBook = existingBookOpt.get();
+            existingBook.setName(groundPojo.getName());
+
+
+            groundRepo.save(existingBook);
+        } else {
+            throw new RuntimeException("Book not found with id " + id);
+        }
     }
 
     @Override

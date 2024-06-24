@@ -1,6 +1,7 @@
 package com.example.webdevtask.service;
 
 import com.example.webdevtask.entity.User;
+import com.example.webdevtask.pojo.GroundPojo;
 import com.example.webdevtask.pojo.UserPojo;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public interface UserService {
 
     void saveData(UserPojo userPojo);
     List<User> getAll();
+    void updateData(Long id, UserPojo userPojo);
 
     void deleteById(Integer id);
     Optional<User> findById(Integer id);

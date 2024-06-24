@@ -33,9 +33,9 @@ public class BookImpl implements BookService {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public void deleteById(Integer id) {
         bookRepo.deleteById(Long.valueOf(id));
-        return false;
+
     }
 
     @Override
